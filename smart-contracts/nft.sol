@@ -26,7 +26,7 @@ contract MyToken is ERC721ALockable, Ownable {
         if(isWhitelistOn) { 
             require(isWhitelisted[msg.sender], "Address not whitelisted");
         }
-        require(!isMintOn, "Mint is not open");
+        require(isMintOn, "Mint is not open");
         require(addressToNFTsMinted[msg.sender] == 0, "You cant mint more than 1 NFT");
         require(msg.value >= NFTPrice, "Value underpriced.");
 
