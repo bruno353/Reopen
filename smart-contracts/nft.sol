@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "./ERC721A.sol";
 import "./ERC721ALockable.sol";
 
-contract MyToken is ERC721ALockable, Ownable {
+contract ReopenGenesisPass is ERC721ALockable, Ownable {
 
     bool public isMintOn;
     bool public isWhitelistOn;
@@ -38,6 +38,11 @@ contract MyToken is ERC721ALockable, Ownable {
         for (uint i = 0; i < _addresses.length; i++) { 
             isWhitelisted[_addresses[i]] = _bool;
         }
+    }
+    
+    function withdraw(address payable to, uint256 amount) public onlyOwner {
+        (bool sent,) = to.call{value: amount}("");
+        require(sent, "Failed to send Ether");
     }
 
     function setIsWhitelistOn(bool _bool) public onlyOwner {
